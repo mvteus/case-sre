@@ -24,7 +24,7 @@ wget https://github.com/nalbury/promql-cli/releases/download/v0.2.1/promql-v0.2.
 Neste contexto, estou usando as _metrics_ que o _server_ do `prometheus` dispõe. Para adicionar outros endpoints, basta incluir através do script `crud.sh`.
 
 ```
-# ./crush.sh
+# ./crud.sh
 CRUD endpoints:
 (1) Para adicionar endpoints;
 (2) Para remover endpoints;
@@ -47,3 +47,29 @@ Para mais informações e exemplos de _queries_, o manual do prometheus é o cam
 ## Nível 2
 
 No diretório `nivel02` há um script de provisionamento/configuração do docker no host.
+
+Fazer o pull da imagem do `prometheus`:
+```
+docker pull prom/prometheus
+```
+
++ Descreva como você irá fazer o delivery do container e da solução:
+
+  Uma solução seria a contida [aqui](https://marllus.com/tecnologia/2020/10/14/pipeline-watchtower).
+
++ Documente como os times de produtos podem adicionar e remover endpoints, com um arquivo de configuração, por exemplo.
+
+  O mesmo script do Nível 1 
+  ```
+  # ./crush.sh
+  CRUD endpoints:
+  (1) Para adicionar endpoints;
+  (2) Para remover endpoints;
+  (3) Para listar endpoints.
+  ```
+
++ Dê exemplos de como coletar todas as métricas com o erro 500 do HTTP por minuto, por exemplo.
+
+  ```
+  # ./promql-cli --host "localhost:9090" 'rate(promhttp_metric_handler_requests_total{code="500"}[1m])'
+  ```
